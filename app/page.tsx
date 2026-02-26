@@ -1,196 +1,105 @@
 import Link from "next/link";
-import { Bot, Building2, ShoppingBag, ShieldCheck, Server, Lock } from "lucide-react";
-import { NavBar } from "@/components/nav-bar";
-import { JourneyCard } from "@/components/journey-card";
+import { Bot, Building2, ShoppingBag } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <NavBar />
-
-      <main className="flex flex-1 flex-col">
-        {/* Hero */}
-        <section
-          className="bg-navy px-6 py-24 text-center"
-          aria-label="Hero"
-        >
-          <div className="mx-auto max-w-3xl flex flex-col items-center gap-6">
-            <p className="text-sm font-medium uppercase tracking-widest text-cyan">
-              4th-IR Platform
-            </p>
-            <h1 className="text-4xl font-bold text-white leading-tight md:text-5xl">
-              Your AI workforce,{" "}
-              <span className="text-cyan">built your way.</span>
-            </h1>
-            <p className="text-lg font-normal text-white/70 leading-relaxed max-w-xl">
-              Onboard a Digital Twin, build a Virtual Organisation, or browse
-              the Marketplace to upskill your Virtual Personas — all in minutes.
-            </p>
-            <Link
-              href="/onboarding/twin"
-              className="mt-2 inline-flex items-center justify-center rounded-lg bg-royal px-8 py-4 text-base font-semibold text-white transition-colors duration-150 hover:bg-[#006690] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
-            >
-              Get started free
-            </Link>
-          </div>
-        </section>
-
-        {/* Journey cards */}
-        <section
-          className="px-6 py-20 bg-white"
-          aria-label="Choose your journey"
-        >
-          <div className="mx-auto max-w-7xl flex flex-col gap-12">
-            <div className="text-center flex flex-col gap-2">
-              <h2 className="text-2xl font-bold text-navy md:text-3xl">
-                Where would you like to start?
-              </h2>
-              <p className="text-base font-normal text-navy/60">
-                Pick a path below — each one has a guided, conversational
-                onboarding flow.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <JourneyCard
-                icon={Bot}
-                title="Digital Twin"
-                description="Create an AI-powered replica of yourself or a role. Define its goals, personality, tone, and knowledge sources in a short guided conversation."
-                primaryLabel="Start onboarding"
-                primaryHref="/onboarding/twin"
-                secondaryLabel="Talk to an onboarding agent"
-                secondaryHref="/onboarding/twin?mode=voice"
-              />
-              <JourneyCard
-                icon={Building2}
-                title="Virtual Organisation"
-                description="Build a multi-persona AI workforce for your team. Set governance rules, data boundaries, and persona roles — guided step by step."
-                primaryLabel="Create organisation"
-                primaryHref="/onboarding/org"
-                secondaryLabel="Talk to an onboarding agent"
-                secondaryHref="/onboarding/org?mode=voice"
-              />
-              <JourneyCard
-                icon={ShoppingBag}
-                title="Marketplace"
-                description="Explore capability modules across Communication, Tools, Compliance, Knowledge Packs, and Workflows. Upskill any Virtual Persona instantly."
-                primaryLabel="Browse marketplace"
-                primaryHref="/marketplace"
-                secondaryLabel="See recommended modules"
-                secondaryHref="/marketplace?view=recommended"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Trust section */}
-        <section
-          className="bg-cyan-tint px-6 py-20"
-          aria-label="Trust and security"
-        >
-          <div className="mx-auto max-w-7xl flex flex-col gap-12">
-            <div className="text-center flex flex-col gap-2">
-              <h2 className="text-2xl font-bold text-navy md:text-3xl">
-                Enterprise-ready. Privacy-first.
-              </h2>
-              <p className="text-base font-normal text-navy/60">
-                Built on Azure infrastructure with security and data boundaries
-                at the core.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-              <TrustItem
-                icon={ShieldCheck}
-                title="Secure by design"
-                description="All data is encrypted in transit and at rest. Role-based access controls are applied throughout."
-              />
-              <TrustItem
-                icon={Server}
-                title="Hosted on Azure"
-                description="Infrastructure runs entirely on Microsoft Azure, meeting enterprise compliance requirements."
-              />
-              <TrustItem
-                icon={Lock}
-                title="Your data stays yours"
-                description="Data boundaries are explicit. Nothing is shared between organisations without consent."
-              />
-            </div>
-
-            {/* Logo placeholder row */}
-            <div className="flex flex-wrap items-center justify-center gap-8 pt-4">
-              {["Partner A", "Partner B", "Partner C", "Partner D"].map(
-                (name) => (
-                  <div
-                    key={name}
-                    className="flex h-10 w-28 items-center justify-center rounded-lg bg-white/70 text-xs font-medium text-navy/40"
-                    aria-label={`${name} logo placeholder`}
-                  >
-                    {name}
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-navy px-6 py-10" role="contentinfo">
-        <div className="mx-auto max-w-7xl flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <span className="text-base font-bold text-white">Twynity</span>
-
-          <nav
-            className="flex flex-wrap gap-6"
-            aria-label="Footer navigation"
+    <div className="flex min-h-screen flex-col bg-[#F9F9FB]">
+      {/* Minimal sticky header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-[#E0DFF0]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-16">
+          {/* Drop your logo file at public/twynity-logo.svg */}
+          <Link href="/" aria-label="Twynity home" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/twynity-logo.svg"
+              alt="Twynity"
+              className="h-8 w-auto"
+            />
+          </Link>
+          <Link
+            href="/login"
+            className="rounded-lg border border-[#E0DFF0] px-4 py-2 text-sm font-medium text-[#1A1830] transition-colors duration-150 hover:border-[#863DFF] hover:text-[#863DFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#863DFF]/40"
           >
-            <Link
-              href="/contact"
-              className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150"
-            >
-              Terms of Service
-            </Link>
-          </nav>
-
-          <p className="text-xs font-light text-white/40">
-            &copy; {new Date().getFullYear()} 4th-IR. All rights reserved.
-          </p>
+            Log in
+          </Link>
         </div>
-      </footer>
+      </header>
+
+      <main className="flex flex-1 items-center justify-center px-6 py-16">
+        <div className="mx-auto w-full max-w-5xl flex flex-col items-center gap-12">
+          <h1 className="text-[40px] font-bold leading-tight text-[#1A1830] text-center">
+            Build your AI workforce —
+            <br className="hidden sm:block" />
+            {" "}starting with you.
+          </h1>
+
+          <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+            <OptionCard
+              icon={Bot}
+              title="Create your Digital Twyn"
+              description="Build an AI-powered representation of yourself. Define its personality, knowledge, and channels in a guided conversation."
+              label="Get started →"
+              href="/onboarding/twin"
+              primary
+            />
+            <OptionCard
+              icon={Building2}
+              title="Hire a Twyn into your organisation"
+              description="Add AI-powered personas to your team. Set roles, governance rules, and data boundaries — step by step."
+              label="Build your team"
+              href="/onboarding/org"
+            />
+            <OptionCard
+              icon={ShoppingBag}
+              title="Browse Marketplace"
+              description="Explore capability modules across Communication, Tools, Compliance, and Knowledge Packs."
+              label="Browse modules"
+              href="/marketplace"
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
 
-interface TrustItemProps {
-  icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+interface OptionCardProps {
+  icon: LucideIcon;
   title: string;
   description: string;
+  label: string;
+  href: string;
+  primary?: boolean;
 }
 
-function TrustItem({ icon: Icon, title, description }: TrustItemProps) {
+function OptionCard({
+  icon: Icon,
+  title,
+  description,
+  label,
+  href,
+  primary = false,
+}: OptionCardProps) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-white p-6">
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-navy">
-        <Icon className="h-5 w-5 text-cyan" aria-hidden />
+    <article className="flex flex-col gap-5 rounded-xl bg-white p-8 border border-[#E0DFF0] shadow-[0_1px_4px_rgba(26,24,48,0.06)] hover:shadow-[0_4px_16px_rgba(134,61,255,0.10)] hover:border-[#EDE8FF] transition-all duration-150">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EDE8FF]">
+        <Icon className="h-6 w-6 text-[#863DFF]" aria-hidden />
       </div>
-      <div className="flex flex-col gap-1">
-        <h3 className="text-base font-semibold text-navy">{title}</h3>
-        <p className="text-sm font-normal text-navy/60 leading-relaxed">
-          {description}
-        </p>
+      <div className="flex flex-col gap-2 flex-1">
+        <h2 className="text-lg font-semibold text-[#1A1830]">{title}</h2>
+        <p className="text-sm text-[#5E5C78] leading-relaxed">{description}</p>
       </div>
-    </div>
+      <Link
+        href={href}
+        className={
+          primary
+            ? "inline-flex items-center justify-center rounded-lg bg-[#863DFF] px-6 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#5629B2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#863DFF]/40"
+            : "inline-flex items-center justify-center rounded-lg border border-[#E0DFF0] px-6 py-3 text-sm font-semibold text-[#1A1830] transition-colors duration-150 hover:border-[#863DFF] hover:text-[#863DFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#863DFF]/40"
+        }
+      >
+        {label}
+      </Link>
+    </article>
   );
 }

@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation'
 import { NavBar } from '@/components/nav-bar'
 import { ChatPanel } from '@/components/onboarding/chat-panel'
 import { FormPanel } from '@/components/onboarding/form-panel'
+import { CreationProgress } from '@/components/onboarding/creation-progress'
 import { useTwinSession } from '@/hooks/use-twin-session'
 import { useTwinChat } from '@/hooks/use-twin-chat'
 
 export default function TwinOnboardingPage() {
   const router = useRouter()
   const { twinState, updateState, resetSession, isHydrated, hasStoredSession } = useTwinSession()
-  const { messages, currentStep, sendMessage, isDone, resetChat } = useTwinChat(updateState)
+  const { messages, currentStep, stepIndex, sendMessage, isDone, resetChat } = useTwinChat(updateState)
   const [isConfirming, setIsConfirming] = useState(false)
 
   // On mount: if no active session exists in localStorage, reset the chat to
@@ -68,11 +69,13 @@ export default function TwinOnboardingPage() {
           style={{ minHeight: '60vh' }}
         >
           <div className="px-6 py-4 border-b border-navy/10 bg-white">
-            <h1 className="text-base font-semibold text-navy">Onboard your Digital Twin</h1>
+            <h1 className="text-base font-semibold text-navy">Onboard your Digital Twyn</h1>
             <p className="text-xs font-normal text-navy/50 mt-0.5">
               Answer the questions below — your form fills automatically.
             </p>
           </div>
+
+          <CreationProgress stepIndex={stepIndex} />
 
           <ChatPanel
             messages={messages}
