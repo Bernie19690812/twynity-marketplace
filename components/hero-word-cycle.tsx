@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const WORDS = ['Sales', 'Support', 'Operations', 'Compliance']
+const WORDS = ['Sales', 'Support', 'Operations', 'Compliance', 'Development']
 
 export function HeroWordCycle() {
   const [index, setIndex] = useState(0)
