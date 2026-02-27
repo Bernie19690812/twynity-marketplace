@@ -5,9 +5,9 @@ interface DifficultyBadgeProps {
 }
 
 const BADGE_STYLES: Record<Difficulty, string> = {
-  beginner: 'bg-cyan-tint text-royal',
-  intermediate: 'bg-royal text-white',
-  advanced: 'bg-navy text-white',
+  beginner: 'bg-brand-light text-brand-primary',
+  intermediate: 'bg-brand-primary text-white',
+  advanced: 'bg-brand-mid text-white',
 }
 
 const LABELS: Record<Difficulty, string> = {

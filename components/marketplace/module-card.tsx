@@ -13,11 +13,11 @@ interface ModuleCardProps {
 
 export function ModuleCard({ module, isInPlan, onAdd, onRemove }: ModuleCardProps) {
   return (
-    <article className="flex flex-col gap-4 rounded-2xl bg-white border border-navy/10 p-6 transition-shadow duration-150 hover:shadow-md">
+    <article className="flex flex-col gap-4 rounded-2xl bg-white border border-grey-200 p-6 shadow-[0_1px_4px_rgba(26,24,48,0.06)] transition-all duration-150 hover:shadow-[0_4px_16px_rgba(134,61,255,0.10)] hover:border-brand-light">
       {/* Header row */}
       <div className="flex items-center justify-between gap-2">
         <DifficultyBadge difficulty={module.difficulty} />
-        <span className="flex items-center gap-1 text-xs font-light text-navy/50">
+        <span className="flex items-center gap-1 text-xs font-light text-grey-400">
           <Clock className="h-3 w-3" aria-hidden />
           {module.estimated_time}
         </span>
@@ -25,15 +25,15 @@ export function ModuleCard({ module, isInPlan, onAdd, onRemove }: ModuleCardProp
 
       {/* Title + description */}
       <div className="flex flex-col gap-1.5 flex-1">
-        <h3 className="text-base font-semibold text-navy leading-snug">
+        <h3 className="text-base font-semibold text-grey-900 leading-snug">
           <Link
             href={`/marketplace/${module.id}`}
-            className="hover:text-royal transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal rounded"
+            className="hover:text-brand-primary transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40 rounded"
           >
             {module.title}
           </Link>
         </h3>
-        <p className="text-sm font-normal text-navy/60 leading-relaxed line-clamp-2">
+        <p className="text-sm font-normal text-grey-600 leading-relaxed line-clamp-2">
           {module.short_description}
         </p>
       </div>
@@ -44,7 +44,7 @@ export function ModuleCard({ module, isInPlan, onAdd, onRemove }: ModuleCardProp
           {module.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-cyan-tint px-2.5 py-0.5 text-xs font-medium text-navy/60"
+              className="rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-medium text-brand-primary"
             >
               {tag}
             </span>

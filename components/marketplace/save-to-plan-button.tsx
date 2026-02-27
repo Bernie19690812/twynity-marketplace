@@ -29,11 +29,11 @@ export function SaveToPlanButton({
       aria-pressed={isInPlan}
       aria-label={isInPlan ? 'Remove from learning plan' : 'Save to learning plan'}
       className={[
-        'inline-flex items-center gap-2 rounded-lg font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal',
+        'inline-flex items-center gap-2 rounded-lg font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40',
         SIZE_CLASSES[size],
         isInPlan
-          ? 'bg-cyan-tint text-royal hover:bg-red-50 hover:text-red-600'
-          : 'bg-royal text-white hover:bg-[#006690]',
+          ? 'bg-brand-light text-brand-primary hover:bg-red-50 hover:text-error'
+          : 'bg-brand-primary text-white hover:bg-brand-mid',
       ].join(' ')}
     >
       {isInPlan ? (

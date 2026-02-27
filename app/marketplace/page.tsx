@@ -22,18 +22,18 @@ export default function MarketplacePage() {
   const savedCount = plan.module_ids.length
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-screen flex-col bg-grey-50">
       <NavBar />
 
       {/* Page header */}
-      <section className="bg-navy px-6 py-12" aria-label="Marketplace header">
+      <section className="bg-brand-xlight border-b border-brand-light px-6 py-12" aria-label="Marketplace header">
         <div className="mx-auto max-w-7xl flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium uppercase tracking-widest text-cyan">
+            <p className="text-sm font-medium uppercase tracking-widest text-brand-primary">
               4th-IR Platform
             </p>
-            <h1 className="text-3xl font-bold text-white">Marketplace</h1>
-            <p className="text-base font-normal text-white/60 max-w-md leading-relaxed">
+            <h1 className="text-3xl font-bold text-grey-900">Marketplace</h1>
+            <p className="text-base font-normal text-grey-600 max-w-md leading-relaxed">
               Browse capability modules and save them to your learning plan.
               Upskill any Virtual Persona in minutes.
             </p>
@@ -42,12 +42,12 @@ export default function MarketplacePage() {
           {savedCount > 0 && (
             <Link
               href="/plan"
-              className="inline-flex items-center gap-2 rounded-lg bg-royal px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#006690] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan flex-shrink-0"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40 flex-shrink-0"
               aria-label={`View learning plan — ${savedCount} module${savedCount !== 1 ? 's' : ''} saved`}
             >
               <BookmarkPlus className="h-4 w-4" aria-hidden />
               My plan
-              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-bold">
+              <span className="rounded-full bg-white/30 px-2 py-0.5 text-xs font-bold">
                 {savedCount}
               </span>
             </Link>
@@ -64,7 +64,7 @@ export default function MarketplacePage() {
           />
 
           <div className="flex items-center justify-between">
-            <p className="text-sm font-normal text-navy/50">
+            <p className="text-sm font-normal text-grey-400">
               {filteredModules.length === 0
                 ? 'No modules found'
                 : `${filteredModules.length} module${filteredModules.length !== 1 ? 's' : ''}`}
@@ -82,15 +82,15 @@ export default function MarketplacePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-navy px-6 py-10 mt-10" role="contentinfo">
+      <footer className="mt-10 border-t border-grey-200 bg-white px-6 py-10" role="contentinfo">
         <div className="mx-auto max-w-7xl flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <span className="text-base font-bold text-white">Twynity</span>
+          <span className="text-base font-bold text-grey-900">Twynity</span>
           <nav className="flex flex-wrap gap-6" aria-label="Footer navigation">
-            <Link href="/contact" className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150">Contact</Link>
-            <Link href="/privacy" className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150">Privacy Policy</Link>
-            <Link href="/terms" className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-150">Terms of Service</Link>
+            <Link href="/contact" className="text-sm font-normal text-grey-600 hover:text-grey-900 transition-colors duration-150">Contact</Link>
+            <Link href="/privacy" className="text-sm font-normal text-grey-600 hover:text-grey-900 transition-colors duration-150">Privacy Policy</Link>
+            <Link href="/terms" className="text-sm font-normal text-grey-600 hover:text-grey-900 transition-colors duration-150">Terms of Service</Link>
           </nav>
-          <p className="text-xs font-light text-white/40">
+          <p className="text-xs font-light text-grey-400">
             &copy; {new Date().getFullYear()} 4th-IR. All rights reserved.
           </p>
         </div>

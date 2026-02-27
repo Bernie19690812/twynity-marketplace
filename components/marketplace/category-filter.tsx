@@ -45,17 +45,17 @@ export function CategoryFilter({ selected, onSelect }: CategoryFilterProps) {
             aria-selected={isActive}
             onClick={() => onSelect(value)}
             className={[
-              'flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-royal',
+              'flex-shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40',
               isActive
-                ? 'bg-navy text-white'
-                : 'bg-cyan-tint text-navy hover:bg-royal/10',
+                ? 'bg-brand-primary text-white'
+                : 'bg-grey-100 text-grey-900 hover:bg-brand-light hover:text-brand-primary',
             ].join(' ')}
           >
             {label}
             <span
               className={[
                 'ml-2 rounded-full px-1.5 py-0.5 text-xs font-semibold',
-                isActive ? 'bg-white/20 text-white' : 'bg-navy/10 text-navy/60',
+                isActive ? 'bg-white/20 text-white' : 'bg-grey-200 text-grey-600',
               ].join(' ')}
               aria-label={`${count} modules`}
             >
