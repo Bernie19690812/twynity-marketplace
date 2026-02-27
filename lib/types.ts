@@ -87,3 +87,68 @@ export interface LearningPlan {
   module_ids: string[]
   created_at: string
 }
+
+// ── v2 Creation Flow & Dashboard Types ──────────────────────────────────────
+
+export type UseCaseOption =
+  | 'personal_assistant'
+  | 'sales_engagement'
+  | 'coaching_mentoring'
+  | 'education_training'
+  | 'creative_entertainment'
+  | 'internal_knowledge'
+  | 'other'
+
+export type DeploymentChannel =
+  | 'marketplace'
+  | 'website_embed'
+  | 'internal_tool'
+  | 'social_messaging'
+  | 'unsure'
+
+export type InteractionStyle =
+  | 'brief_direct'
+  | 'conversational_warm'
+  | 'detailed_thorough'
+
+export type CreationFlowState = {
+  step: 1 | 2 | 3 | 4
+  identity: {
+    name: string
+    role: string
+    about: string
+  }
+  faceVoice: {
+    avatarId: string | null
+    faceImageFile: File | null
+    faceImagePreviewUrl: string | null
+    voiceFile: File | null
+    voiceDurationSeconds: number | null
+  }
+  deployment: {
+    useCase: UseCaseOption | null
+    channels: DeploymentChannel[]
+    interactionStyle: InteractionStyle | null
+  }
+}
+
+export type TwinStatus = 'draft' | 'processing' | 'ready' | 'published'
+
+export type Twin = {
+  id: string
+  name: string
+  role: string
+  about: string
+  faceImageUrl: string
+  voiceModelId: string
+  useCase: UseCaseOption
+  channels: DeploymentChannel[]
+  interactionStyle: InteractionStyle | null
+  status: TwinStatus
+  marketplaceListing?: {
+    price: number
+    publishedAt: string
+  }
+  createdAt: string
+  updatedAt: string
+}

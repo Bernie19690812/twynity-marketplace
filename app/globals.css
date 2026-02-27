@@ -3,14 +3,36 @@
 @theme {
   --font-sans: 'Inter', sans-serif;
 
+  /* ── Legacy Blue Palette (kept for backward compatibility) ── */
   --color-navy: #12293F;
   --color-royal: #007AA4;
   --color-cyan: #00C2F3;
   --color-cyan-tint: #D9F1FD;
+
+  /* ── v2 Brand Colors ── */
+  --color-brand-primary: #863DFF;
+  --color-brand-mid: #5629B2;
+  --color-brand-deep: #28195E;
+  --color-brand-light: #EDE8FF;
+  --color-brand-xlight: #F7F5FF;
+
+  /* ── v2 Neutral Colors ── */
+  --color-grey-50: #F9F9FB;
+  --color-grey-100: #F0EFF5;
+  --color-grey-200: #E0DFF0;
+  --color-grey-400: #9896B0;
+  --color-grey-600: #5E5C78;
+  --color-grey-900: #1A1830;
+
+  /* ── v2 Semantic Colors ── */
+  --color-success: #17A865;
+  --color-success-light: #E6F7F0;
+  --color-warning: #F59E0B;
+  --color-error: #E53E3E;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
-  color: #12293F;
+  background-color: #F9F9FB;
+  color: #1A1830;
 }
