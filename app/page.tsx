@@ -40,7 +40,7 @@ export default function LandingPage() {
               title="Create your Digital Twyn"
               description="Build an AI-powered representation of yourself. Define its personality, knowledge, and channels in a guided conversation."
               label="Get started →"
-              href="/create"
+              href="/app"
               primary
             />
             <OptionCard

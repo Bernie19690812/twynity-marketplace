@@ -149,6 +149,10 @@ export type Twin = {
     price: number
     publishedAt: string
   }
+  reviews?: {
+    average: number  // 0–5
+    count: number
+  }
   createdAt: string
   updatedAt: string
 }
