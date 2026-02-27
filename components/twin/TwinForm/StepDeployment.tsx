@@ -1,29 +1,8 @@
 'use client'
 
-import type {
-  CreationFlowState,
-  UseCaseOption,
-  DeploymentChannel,
-  InteractionStyle,
-} from '@/lib/types'
-
-const USE_CASE_OPTIONS: { value: UseCaseOption; label: string; description: string }[] = [
-  { value: 'personal_assistant', label: 'Personal assistant', description: 'Day-to-day help and task management' },
-  { value: 'sales_engagement', label: 'Sales & customer engagement', description: 'Lead qualification and customer support' },
-  { value: 'coaching_mentoring', label: 'Coaching or mentoring', description: 'Guidance, feedback, and skill development' },
-  { value: 'education_training', label: 'Education & training', description: 'Teaching and structured learning' },
-  { value: 'creative_entertainment', label: 'Creative or entertainment', description: 'Storytelling, roleplay, and content' },
-  { value: 'internal_knowledge', label: 'Internal team knowledge', description: 'Company knowledge base and FAQs' },
-  { value: 'other', label: 'Other', description: 'Something else entirely' },
-]
-
-const CHANNEL_OPTIONS: { value: DeploymentChannel; label: string }[] = [
-  { value: 'marketplace', label: 'Twynity Marketplace' },
-  { value: 'website_embed', label: 'Embedded on a website' },
-  { value: 'internal_tool', label: 'Internal team tool' },
-  { value: 'social_messaging', label: 'Social / messaging' },
-  { value: 'unsure', label: 'Not sure yet' },
-]
+import { useRef, useState } from 'react'
+import { Upload, FileText, X } from 'lucide-react'
+import type { CreationFlowState, InteractionStyle } from '@/lib/types'
 
 const STYLE_OPTIONS: { value: InteractionStyle; label: string; description: string }[] = [
   { value: 'brief_direct', label: 'Brief and direct', description: 'Short, to-the-point responses' },
@@ -39,88 +18,84 @@ interface StepDeploymentProps {
 }
 
 export function StepDeployment({ data, onChange, onNext, onBack }: StepDeploymentProps) {
-  const canProceed = data.useCase !== null
+  const [knowledgeFiles, setKnowledgeFiles] = useState<File[]>([])
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const toggleChannel = (channel: DeploymentChannel) => {
-    const channels = data.channels.includes(channel)
-      ? data.channels.filter(c => c !== channel)
-      : [...data.channels, channel]
-    onChange({ channels })
+  const handleFiles = (incoming: FileList | null) => {
+    if (!incoming) return
+    const added = Array.from(incoming)
+    setKnowledgeFiles(prev => {
+      const existing = new Set(prev.map(f => f.name))
+      return [...prev, ...added.filter(f => !existing.has(f.name))]
+    })
+  }
+
+  const removeFile = (name: string) => {
+    setKnowledgeFiles(prev => prev.filter(f => f.name !== name))
   }
 
   return (
     <div className="flex flex-col gap-8">
 
-      {/* Use Case */}
+      {/* Upload Knowledge Pack */}
       <section className="flex flex-col gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-grey-900">
-            Primary use case <span className="text-error" aria-hidden="true">*</span>
-          </h3>
-          <p className="text-xs text-grey-400 mt-0.5">How will this twin be used?</p>
+          <h3 className="text-sm font-semibold text-grey-900">Upload Knowledge Pack</h3>
+          <p className="text-xs text-grey-400 mt-0.5">
+            Upload files that define your Twyn&apos;s knowledge base. PDF, DOCX, TXT, and CSV supported.
+          </p>
         </div>
-        <div className="flex flex-col gap-2">
-          {USE_CASE_OPTIONS.map(({ value, label, description }) => {
-            const selected = data.useCase === value
-            return (
-              <button
-                key={value}
-                type="button"
-                onClick={() => onChange({ useCase: value })}
-                className={[
-                  'flex items-start gap-3 rounded-lg border p-3 text-left transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40',
-                  selected
-                    ? 'border-brand-primary bg-brand-xlight'
-                    : 'border-grey-200 bg-white hover:border-brand-light hover:bg-brand-xlight',
-                ].join(' ')}
-                aria-pressed={selected}
-              >
-                <div
-                  className={[
-                    'mt-0.5 h-4 w-4 flex-shrink-0 rounded-full border-2 transition-colors duration-150',
-                    selected ? 'border-brand-primary bg-brand-primary' : 'border-grey-200',
-                  ].join(' ')}
-                  aria-hidden="true"
-                />
-                <div>
-                  <p className={`text-sm font-medium ${selected ? 'text-brand-primary' : 'text-grey-900'}`}>
-                    {label}
-                  </p>
-                  <p className="text-xs text-grey-400 mt-0.5">{description}</p>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      </section>
 
-      {/* Deployment Channels */}
-      <section className="flex flex-col gap-3">
-        <div>
-          <h3 className="text-sm font-semibold text-grey-900">Deployment channels</h3>
-          <p className="text-xs text-grey-400 mt-0.5">Where will this twin appear? Select all that apply.</p>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => fileInputRef.current?.click()}
+          onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && fileInputRef.current?.click()}
+          className="flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-grey-200 p-8 cursor-pointer transition-colors duration-150 hover:border-brand-primary hover:bg-brand-xlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40"
+          aria-label="Upload knowledge pack files"
+        >
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-light">
+            <Upload className="h-6 w-6 text-brand-primary" aria-hidden="true" />
+          </div>
+          <div className="text-center">
+            <p className="text-sm font-medium text-grey-900">Upload files</p>
+            <p className="text-xs text-grey-400 mt-0.5">PDF, DOCX, TXT, CSV · Multiple files supported</p>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".pdf,.docx,.doc,.txt,.csv"
+            multiple
+            className="sr-only"
+            onChange={e => handleFiles(e.target.files)}
+            aria-label="Knowledge pack file input"
+          />
         </div>
-        <div className="flex flex-wrap gap-2">
-          {CHANNEL_OPTIONS.map(({ value, label }) => {
-            const selected = data.channels.includes(value)
-            return (
-              <button
-                key={value}
-                type="button"
-                onClick={() => toggleChannel(value)}
-                className={[
-                  'rounded-full border px-4 py-2 text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40',
-                  selected
-                    ? 'border-brand-primary bg-brand-light text-brand-primary'
-                    : 'border-grey-200 bg-white text-grey-600 hover:border-brand-primary hover:text-brand-primary',
-                ].join(' ')}
-                aria-pressed={selected}
+
+        {knowledgeFiles.length > 0 && (
+          <ul className="flex flex-col gap-2" role="list">
+            {knowledgeFiles.map(file => (
+              <li
+                key={file.name}
+                className="flex items-center gap-3 rounded-lg border border-grey-200 bg-white px-3 py-2"
               >
-                {label}
-              </button>
-            )
-          })}
-        </div>
+                <FileText className="h-4 w-4 flex-shrink-0 text-brand-primary" aria-hidden="true" />
+                <span className="flex-1 text-sm text-grey-900 truncate">{file.name}</span>
+                <span className="text-xs text-grey-400 flex-shrink-0">
+                  {(file.size / 1024).toFixed(0)} KB
+                </span>
+                <button
+                  type="button"
+                  onClick={e => { e.stopPropagation(); removeFile(file.name) }}
+                  className="flex-shrink-0 text-grey-400 hover:text-error transition-colors duration-150 focus-visible:outline-none"
+                  aria-label={`Remove ${file.name}`}
+                >
+                  <X className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {/* Interaction Style */}
@@ -176,8 +151,7 @@ export function StepDeployment({ data, onChange, onNext, onBack }: StepDeploymen
         <button
           type="button"
           onClick={onNext}
-          disabled={!canProceed}
-          className="rounded-lg bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-brand-mid disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40"
+          className="rounded-lg bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-brand-mid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40"
         >
           Next →
         </button>
