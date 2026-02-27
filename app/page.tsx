@@ -57,7 +57,7 @@ export default function LandingPage() {
             <OptionCard
               icon={Bot}
               title="Create a Digital Twyn of yourself"
-              description="Build an AI-powered representation of yourself. Define its personality, knowledge, and channels in a guided conversation."
+              description="Build Virtual Personas of yourself. Give it your voice, your likeness, define its personality and give it expertise that you don't have."
               label="Get started →"
               href="/app"
               primary
