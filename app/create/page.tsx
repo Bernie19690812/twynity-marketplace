@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Check, ChevronRight } from 'lucide-react'
 import type { CreationFlowState } from '@/lib/types'
 import { StepIdentity } from '@/components/twin/TwinForm/StepIdentity'
 import { StepFaceVoice } from '@/components/twin/TwinForm/StepFaceVoice'
@@ -28,7 +29,12 @@ const INITIAL_STATE: CreationFlowState = {
   },
 }
 
-const STEP_TITLES = ['Identity', 'Face & Voice', 'Deployment', 'Review'] as const
+const STEPS = [
+  { step: 1 as const, title: 'Identity' },
+  { step: 2 as const, title: 'Face & Voice' },
+  { step: 3 as const, title: 'Deployment' },
+  { step: 4 as const, title: 'Review' },
+]
 
 type SerializableDraft = {
   step: CreationFlowState['step']
@@ -73,7 +79,6 @@ export default function CreateTwinPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isHydrated, setIsHydrated] = useState(false)
 
-  // Restore serializable draft from localStorage on mount
   useEffect(() => {
     const draft = loadDraft()
     if (draft.identity || draft.deployment) {
@@ -87,7 +92,6 @@ export default function CreateTwinPage() {
     setIsHydrated(true)
   }, [])
 
-  // Auto-save serializable fields (debounced)
   useEffect(() => {
     if (!isHydrated) return
     const timer = setTimeout(() => saveDraft(state), 500)
@@ -113,7 +117,6 @@ export default function CreateTwinPage() {
 
   const handleConfirm = async () => {
     setIsSubmitting(true)
-    // TODO: POST /twins with multipart FormData when API is ready
     await new Promise<void>(resolve => setTimeout(resolve, 1500))
     clearDraft()
     router.push('/app')
@@ -146,18 +149,61 @@ export default function CreateTwinPage() {
 
       <main className="mx-auto max-w-[560px] px-6 py-10">
 
-        {/* Step progress */}
+        {/* Page heading */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-grey-900">Creation of your Virtual Twyn</h1>
+        </div>
+
+        {/* Step trail */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold text-grey-900">Step {state.step} of 4</p>
-            <p className="text-sm text-grey-400">{STEP_TITLES[state.step - 1]}</p>
-          </div>
-          <div className="flex items-center gap-1.5" role="progressbar" aria-valuenow={state.step} aria-valuemin={1} aria-valuemax={4}>
+          <nav aria-label="Creation steps" className="flex items-center flex-wrap gap-y-2">
+            {STEPS.map(({ step: s, title }, i) => {
+              const isDone = s < state.step
+              const isActive = s === state.step
+              return (
+                <Fragment key={s}>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <div
+                      className={[
+                        'h-6 w-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0',
+                        isDone || isActive
+                          ? 'bg-brand-primary text-white'
+                          : 'bg-grey-200 text-grey-400',
+                      ].join(' ')}
+                      aria-current={isActive ? 'step' : undefined}
+                    >
+                      {isDone ? <Check className="h-3.5 w-3.5" aria-hidden="true" /> : s}
+                    </div>
+                    <span
+                      className={[
+                        'text-sm font-medium whitespace-nowrap',
+                        isActive ? 'text-brand-primary' : isDone ? 'text-brand-mid' : 'text-grey-400',
+                      ].join(' ')}
+                    >
+                      {title}
+                    </span>
+                  </div>
+                  {i < STEPS.length - 1 && (
+                    <ChevronRight className="h-4 w-4 text-grey-300 flex-shrink-0 mx-2" aria-hidden="true" />
+                  )}
+                </Fragment>
+              )
+            })}
+          </nav>
+
+          {/* Progress bar */}
+          <div
+            className="mt-4 flex items-center gap-1.5"
+            role="progressbar"
+            aria-valuenow={state.step}
+            aria-valuemin={1}
+            aria-valuemax={4}
+          >
             {([1, 2, 3, 4] as const).map(s => (
               <div
                 key={s}
                 className={[
-                  'flex-1 h-1.5 rounded-full transition-colors duration-300',
+                  'flex-1 h-1 rounded-full transition-colors duration-300',
                   s <= state.step ? 'bg-brand-primary' : 'bg-grey-200',
                 ].join(' ')}
               />

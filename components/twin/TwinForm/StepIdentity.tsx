@@ -1,6 +1,12 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import type { CreationFlowState } from '@/lib/types'
+
+const ROLE_OPTIONS = [
+  'Scrum Master',
+  'Executive Assistant',
+]
 
 interface StepIdentityProps {
   data: CreationFlowState['identity']
@@ -37,19 +43,28 @@ export function StepIdentity({ data, onChange, onNext }: StepIdentityProps) {
         />
       </div>
 
-      {/* Role */}
+      {/* Role — dropdown */}
       <div className="flex flex-col gap-1.5">
         <label htmlFor="twin-role" className="text-sm font-semibold text-grey-900">
           Role
         </label>
-        <input
-          id="twin-role"
-          type="text"
-          value={data.role}
-          onChange={e => onChange({ role: e.target.value })}
-          placeholder="e.g. Sales lead, Coach, Assistant"
-          className="rounded-lg border border-grey-200 bg-white px-4 py-3 text-sm text-grey-900 placeholder:text-grey-400 focus:border-brand-primary focus:outline-none focus:ring-3 focus:ring-brand-xlight transition-colors duration-150"
-        />
+        <div className="relative">
+          <select
+            id="twin-role"
+            value={data.role}
+            onChange={e => onChange({ role: e.target.value })}
+            className="w-full appearance-none rounded-lg border border-grey-200 bg-white px-4 py-3 pr-10 text-sm text-grey-900 focus:border-brand-primary focus:outline-none focus:ring-3 focus:ring-brand-xlight transition-colors duration-150 cursor-pointer"
+          >
+            <option value="">Select a role</option>
+            {ROLE_OPTIONS.map(role => (
+              <option key={role} value={role}>{role}</option>
+            ))}
+          </select>
+          <ChevronDown
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-grey-400"
+            aria-hidden="true"
+          />
+        </div>
       </div>
 
       {/* Personality */}
