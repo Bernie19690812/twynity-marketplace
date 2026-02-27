@@ -31,8 +31,8 @@ const INITIAL_STATE: CreationFlowState = {
 
 const STEPS = [
   { step: 1 as const, title: 'Identity' },
-  { step: 2 as const, title: 'Face & Voice' },
-  { step: 3 as const, title: 'Deployment' },
+  { step: 2 as const, title: 'Personification' },
+  { step: 3 as const, title: 'Personality' },
   { step: 4 as const, title: 'Review' },
 ]
 
