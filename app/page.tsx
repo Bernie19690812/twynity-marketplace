@@ -56,7 +56,7 @@ export default function LandingPage() {
           <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3 mt-10">
             <OptionCard
               icon={Bot}
-              title="Create your Digital Twyn"
+              title="Create a Digital Twyn of yourself"
               description="Build an AI-powered representation of yourself. Define its personality, knowledge, and channels in a guided conversation."
               label="Get started →"
               href="/app"
@@ -64,14 +64,14 @@ export default function LandingPage() {
             />
             <OptionCard
               icon={Building2}
-              title="Hire a Twyn into your organisation"
+              title="Hire a Digital Twyn into your organisation"
               description="Add AI-powered personas to your team. Set roles, governance rules, and data boundaries — step by step."
               label="Build your team"
               href="/onboarding/org"
             />
             <OptionCard
               icon={ShoppingBag}
-              title="Browse Marketplace"
+              title="Browse the Marketplace for Twyns and Skills"
               description="Explore capability modules across Communication, Tools, Compliance, and Knowledge Packs."
               label="Browse modules"
               href="/marketplace"
