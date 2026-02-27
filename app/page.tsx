@@ -9,13 +9,14 @@ export default function LandingPage() {
       {/* Minimal sticky header */}
       <header className="sticky top-0 z-50 bg-white border-b border-[#E0DFF0]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-16">
-          <Link href="/" aria-label="Twynity home" className="flex items-center">
+          <Link href="/" aria-label="Twynity home" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/twynity-logo.svg"
-              alt="Twynity"
-              className="h-8 w-auto"
+              alt=""
+              className="h-12 w-12"
             />
+            <span className="text-xl font-bold text-[#1A1830]">Twynity</span>
           </Link>
           <Link
             href="/login"
