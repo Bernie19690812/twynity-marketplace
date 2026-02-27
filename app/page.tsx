@@ -65,7 +65,7 @@ export default function LandingPage() {
             <OptionCard
               icon={Building2}
               title="Hire a Digital Twyn into your organisation"
-              description="Add AI-powered personas to your team. Set roles, governance rules, and data boundaries — step by step."
+              description="Hire a Digital Twyn for a role in your organisation. Define the role, skills, expertise and define the governance rules and supervision."
               label="Build your team"
               href="/onboarding/org"
             />
