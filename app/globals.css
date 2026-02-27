@@ -37,3 +37,12 @@ body {
   background-color: #F9F9FB;
   color: #1A1830;
 }
+
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50%       { opacity: 1;    transform: scale(1.07); }
+}
+
+.hero-bg-pulse {
+  animation: hero-pulse 8s ease-in-out infinite;
+}

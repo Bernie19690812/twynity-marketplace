@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Bot, Building2, ShoppingBag } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { HeroWordCycle } from "@/components/hero-word-cycle";
 
 export default function LandingPage() {
   return (
@@ -8,7 +9,6 @@ export default function LandingPage() {
       {/* Minimal sticky header */}
       <header className="sticky top-0 z-50 bg-white border-b border-[#E0DFF0]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-16">
-          {/* Drop your logo file at public/twynity-logo.svg */}
           <Link href="/" aria-label="Twynity home" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -26,15 +26,33 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <main className="flex flex-1 items-center justify-center px-6 py-16">
-        <div className="mx-auto w-full max-w-5xl flex flex-col items-center gap-12">
+      <main className="relative flex flex-1 items-center justify-center px-6 pt-10 pb-16 overflow-hidden">
+        {/* Animated radial gradient background */}
+        <div
+          aria-hidden="true"
+          className="hero-bg-pulse absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 55% at 50% 30%, rgba(134, 61, 255, 0.07) 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="relative mx-auto w-full max-w-5xl flex flex-col items-center gap-3">
+          {/* Headline */}
           <h1 className="text-[40px] font-bold leading-tight text-[#1A1830] text-center">
-            Build your AI workforce —
-            <br className="hidden sm:block" />
-            {" "}starting with you.
+            Building the Virtual Workforce of the Future
+            <br />
+            <span className="text-[#9896B0] font-normal">— starting with </span>
+            <HeroWordCycle />
           </h1>
 
-          <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Subheading */}
+          <p className="text-lg font-light text-[#9896B0] text-center mt-1">
+            Your AI-powered team, built around you.
+          </p>
+
+          {/* Cards */}
+          <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3 mt-10">
             <OptionCard
               icon={Bot}
               title="Create your Digital Twyn"
@@ -82,9 +100,12 @@ function OptionCard({
   primary = false,
 }: OptionCardProps) {
   return (
-    <article className="flex flex-col gap-5 rounded-xl bg-white p-8 border border-[#E0DFF0] shadow-[0_1px_4px_rgba(26,24,48,0.06)] hover:shadow-[0_4px_16px_rgba(134,61,255,0.10)] hover:border-[#EDE8FF] transition-all duration-150">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#EDE8FF]">
-        <Icon className="h-6 w-6 text-[#863DFF]" aria-hidden />
+    <article className="flex flex-col gap-5 rounded-xl bg-white p-8 border border-[#E0DFF0] shadow-[0_1px_4px_rgba(26,24,48,0.06)] hover:shadow-[0_8px_28px_rgba(134,61,255,0.18)] hover:border-[#C4A8FF] hover:-translate-y-1 transition-all duration-200">
+      <div
+        className="flex h-14 w-14 items-center justify-center rounded-full"
+        style={{ background: 'linear-gradient(135deg, #EDE8FF 0%, #C4A8FF 100%)' }}
+      >
+        <Icon className="h-7 w-7 text-[#863DFF]" aria-hidden />
       </div>
       <div className="flex flex-col gap-2 flex-1">
         <h2 className="text-lg font-semibold text-[#1A1830]">{title}</h2>
